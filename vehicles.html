@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Vehicles - DriveNow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-car-front-fill"></i> DriveNow
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="vehicles.html">Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="booking-history.html">My Bookings</a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-outline-light btn-sm" href="customer-login.html">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary btn-sm" href="customer-register.html">
+                            <i class="bi bi-person-plus"></i> Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h2 class="fw-bold">Available Vehicles</h2>
+                <p class="text-muted">Find the perfect vehicle for your journey</p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Filters</h5>
+
+                        <div class="mb-3">
+                            <label for="searchInput" class="form-label">Search</label>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search vehicles...">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="typeFilter" class="form-label">Vehicle Type</label>
+                            <select class="form-select" id="typeFilter">
+                                <option value="">All Types</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="suv">SUV</option>
+                                <option value="truck">Truck</option>
+                                <option value="luxury">Luxury</option>
+                                <option value="electric">Electric</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="brandFilter" class="form-label">Brand</label>
+                            <select class="form-select" id="brandFilter">
+                                <option value="">All Brands</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="priceFilter" class="form-label">Max Price per Day</label>
+                            <input type="range" class="form-range" id="priceFilter" min="0" max="5000" value="5000">
+                            <div class="d-flex justify-content-between">
+                                <small>₹0</small>
+                                <small id="priceValue">₹5000</small>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="availableOnly" checked>
+                                <label class="form-check-label" for="availableOnly">
+                                    Show available only
+                                </label>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100" id="applyFilters">
+                            <i class="bi bi-funnel"></i> Apply Filters
+                        </button>
+                        <button class="btn btn-outline-secondary w-100 mt-2" id="resetFilters">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="mb-3 d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted">Showing <strong id="vehicleCount">0</strong> vehicles</span>
+                    </div>
+                    <div>
+                        <select class="form-select form-select-sm" id="sortBy" style="width: auto;">
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="brand">Brand: A to Z</option>
+                            <option value="type">Type</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="loadingSpinner" class="text-center py-5 d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <div id="vehiclesList" class="row g-4">
+                </div>
+
+                <div id="noResults" class="text-center py-5 d-none">
+                    <i class="bi bi-search display-1 text-muted"></i>
+                    <h4 class="mt-3">No vehicles found</h4>
+                    <p class="text-muted">Try adjusting your search filters</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/navbar-auth.js"></script>
+    <script>
+        let allVehicles = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVehicles();
+            setupFilters();
+        });
+
+        async function loadVehicles() {
+            const spinner = document.getElementById('loadingSpinner');
+            const vehiclesList = document.getElementById('vehiclesList');
+
+            spinner.classList.remove('d-none');
+
+            try {
+                allVehicles = await getVehicles();
+                populateBrandFilter();
+                applyFilters();
+            } catch (error) {
+                console.error('Error loading vehicles:', error);
+                vehiclesList.innerHTML = '<div class="alert alert-danger">Failed to load vehicles. Please try again.</div>';
+            } finally {
+                spinner.classList.add('d-none');
+            }
+        }
+
+        function populateBrandFilter() {
+            const brandFilter = document.getElementById('brandFilter');
+            const brands = [...new Set(allVehicles.map(v => v.brand))].sort();
+
+            brandFilter.innerHTML = '<option value="">All Brands</option>';
+            brands.forEach(brand => {
+                brandFilter.innerHTML += `<option value="${brand.toLowerCase()}">${brand}</option>`;
+            });
+        }
+
+        function displayVehicles(vehicles) {
+            const vehiclesList = document.getElementById('vehiclesList');
+            const noResults = document.getElementById('noResults');
+            const vehicleCount = document.getElementById('vehicleCount');
+
+            vehicleCount.textContent = vehicles.length;
+
+            if (vehicles.length === 0) {
+                vehiclesList.innerHTML = '';
+                noResults.classList.remove('d-none');
+                return;
+            }
+
+            noResults.classList.add('d-none');
+
+            vehiclesList.innerHTML = vehicles.map(vehicle => `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 vehicle-card shadow-sm border-0">
+                        <div class="position-relative">
+                            <img src="${vehicle.image}" class="card-img-top" alt="${vehicle.brand} ${vehicle.model}" style="height: 200px; object-fit: cover;">
+                            ${vehicle.available ?
+                                '<div class="position-absolute top-0 end-0 m-3"><span class="badge bg-success">Available</span></div>' :
+                                '<div class="position-absolute top-0 end-0 m-3"><span class="badge bg-danger">Unavailable</span></div>'
+                            }
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <h5 class="card-title mb-1">${vehicle.brand} ${vehicle.model}</h5>
+                                <p class="text-muted small mb-0">
+                                    <i class="bi bi-tag-fill"></i> ${vehicle.type.charAt(0).toUpperCase() + vehicle.type.slice(1)}
+                                    <span class="ms-2"><i class="bi bi-calendar3"></i> ${vehicle.year}</span>
+                                </p>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    <i class="bi bi-gear-fill"></i> ${vehicle.transmission.charAt(0).toUpperCase() + vehicle.transmission.slice(1)}
+                                    <span class="ms-2"><i class="bi bi-people-fill"></i> ${vehicle.seats} seats</span>
+                                </small>
+                            </div>
+                            <p class="text-primary fw-bold fs-4 mb-3">₹${vehicle.pricePerDay}<small class="text-muted fs-6">/day</small></p>
+                            <div class="d-grid gap-2">
+                                <a href="vehicle-details.html?id=${vehicle.id}" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-eye"></i> View Details
+                                </a>
+                                ${vehicle.available ?
+                                    `<button onclick="handleBookNow(${vehicle.id})" class="btn btn-primary">
+                                        <i class="bi bi-calendar-check"></i> Book Now
+                                    </button>` :
+                                    '<button class="btn btn-secondary" disabled><i class="bi bi-x-circle"></i> Not Available</button>'
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupFilters() {
+            const priceFilter = document.getElementById('priceFilter');
+            const priceValue = document.getElementById('priceValue');
+
+            priceFilter.addEventListener('input', function() {
+                priceValue.textContent = '$' + this.value;
+            });
+
+            document.getElementById('applyFilters').addEventListener('click', applyFilters);
+            document.getElementById('resetFilters').addEventListener('click', resetFilters);
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('typeFilter').addEventListener('change', applyFilters);
+            document.getElementById('brandFilter').addEventListener('change', applyFilters);
+            document.getElementById('availableOnly').addEventListener('change', applyFilters);
+            document.getElementById('sortBy').addEventListener('change', applyFilters);
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const type = document.getElementById('typeFilter').value;
+            const brand = document.getElementById('brandFilter').value;
+            const maxPrice = parseInt(document.getElementById('priceFilter').value);
+            const availableOnly = document.getElementById('availableOnly').checked;
+            const sortBy = document.getElementById('sortBy').value;
+
+            let filtered = allVehicles.filter(vehicle => {
+                const matchesSearch = !searchTerm ||
+                    vehicle.brand.toLowerCase().includes(searchTerm) ||
+                    vehicle.model.toLowerCase().includes(searchTerm) ||
+                    vehicle.type.toLowerCase().includes(searchTerm);
+                const matchesType = !type || vehicle.type.toLowerCase() === type;
+                const matchesBrand = !brand || vehicle.brand.toLowerCase() === brand;
+                const matchesPrice = vehicle.pricePerDay <= maxPrice;
+                const matchesAvailability = !availableOnly || vehicle.available;
+
+                return matchesSearch && matchesType && matchesBrand && matchesPrice && matchesAvailability;
+            });
+
+            filtered = sortVehicles(filtered, sortBy);
+            displayVehicles(filtered);
+        }
+
+        function sortVehicles(vehicles, sortBy) {
+            const sorted = [...vehicles];
+
+            switch(sortBy) {
+                case 'price-low':
+                    sorted.sort((a, b) => a.pricePerDay - b.pricePerDay);
+                    break;
+                case 'price-high':
+                    sorted.sort((a, b) => b.pricePerDay - a.pricePerDay);
+                    break;
+                case 'brand':
+                    sorted.sort((a, b) => a.brand.localeCompare(b.brand));
+                    break;
+                case 'type':
+                    sorted.sort((a, b) => a.type.localeCompare(b.type));
+                    break;
+            }
+
+            return sorted;
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('typeFilter').value = '';
+            document.getElementById('brandFilter').value = '';
+            document.getElementById('priceFilter').value = '5000';
+            document.getElementById('priceValue').textContent = '₹5000';
+            document.getElementById('availableOnly').checked = true;
+            document.getElementById('sortBy').value = 'price-low';
+            applyFilters();
+        }
+
+        function handleBookNow(vehicleId) {
+            if (!isAuthenticated()) {
+                if (confirm('You need to login to book a vehicle. Would you like to login now?')) {
+                    window.location.href = `customer-login.html?return=${encodeURIComponent('booking.html?id=' + vehicleId)}`;
+                }
+            } else {
+                window.location.href = `booking.html?id=${vehicleId}`;
+            }
+        }
+    </script>
+</body>
+</html>

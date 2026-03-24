@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveNow - Premium Vehicle Rental Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <i class="bi bi-car-front-fill me-2"></i>DriveNow
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center" id="mainNavItems">
+                    <li class="nav-item">
+                        <a class="nav-link active px-3" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="vehicles.html">Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="#" onclick="checkAuthAndRedirect('booking-history.html'); return false;">My Bookings</a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-outline-light btn-sm" href="customer-login.html">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary btn-sm" href="customer-register.html">
+                            <i class="bi bi-person-plus"></i> Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section position-relative overflow-hidden">
+        <div class="hero-animated-bg"></div>
+        <div class="hero-overlay"></div>
+
+        <div class="container hero-content position-relative">
+            <div class="row align-items-center" style="min-height: 100vh;">
+                <div class="col-lg-6 text-white hero-text-content">
+                    <div class="badge bg-light text-dark mb-4 px-3 py-2 animate-fade-in">
+                        <i class="bi bi-star-fill text-warning"></i> Trusted by 10,000+ customers
+                    </div>
+                    <h1 class="display-2 fw-bold mb-4 animate-slide-up">
+                        Drive Your Dreams Today
+                    </h1>
+                    <p class="lead mb-4 fs-4 animate-slide-up" style="animation-delay: 0.2s;">
+                        Discover premium vehicles at unbeatable prices. From luxury sedans to rugged SUVs, find your perfect ride in seconds.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-3 mb-5 animate-slide-up" style="animation-delay: 0.4s;">
+                        <a href="vehicles.html" class="btn btn-lg btn-primary px-5 py-3 shadow-lg">
+                            <i class="bi bi-grid-3x3-gap-fill me-2"></i>Browse Vehicles
+                        </a>
+                        <a href="customer-register.html" class="btn btn-lg btn-outline-light px-5 py-3">
+                            <i class="bi bi-rocket-takeoff me-2"></i>Get Started Free
+                        </a>
+                    </div>
+
+                    <div class="row g-4 animate-fade-in" style="animation-delay: 0.6s;">
+                        <div class="col-auto">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                                    <i class="bi bi-check-circle-fill fs-4"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold fs-5">24+ Brands</div>
+                                    <small class="opacity-75">Top manufacturers</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                                    <i class="bi bi-shield-check fs-4"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold fs-5">100% Verified</div>
+                                    <small class="opacity-75">Safety guaranteed</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="hero-car-display position-relative animate-float">
+                        <div class="floating-card bg-white rounded-4 shadow-lg p-4 position-absolute" style="top: 10%; right: 10%; z-index: 10;">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-star-fill text-warning fs-3 me-2"></i>
+                                <div>
+                                    <div class="fw-bold text-dark">4.9/5 Rating</div>
+                                    <small class="text-muted">From 2,500+ reviews</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="floating-card bg-white rounded-4 shadow-lg p-4 position-absolute" style="bottom: 20%; left: 5%; z-index: 10;">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-success rounded-circle p-3 me-3">
+                                    <i class="bi bi-check2 text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark">Instant Booking</div>
+                                    <small class="text-muted">Book in 2 minutes</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-car-icon text-white">
+                            <i class="bi bi-car-front display-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator animate-bounce">
+            <i class="bi bi-chevron-down text-white fs-3"></i>
+        </div>
+    </section>
+
+    <section class="quick-search-section py-5 bg-white shadow-lg position-relative" style="margin-top: -80px; z-index: 100;">
+        <div class="container">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Vehicle Type</label>
+                    <select class="form-select form-select-lg" id="quickSearchType">
+                        <option value="">All Types</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="luxury">Luxury</option>
+                        <option value="electric">Electric</option>
+                        <option value="truck">Truck</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Pickup Date</label>
+                    <input type="date" class="form-control form-control-lg" id="quickSearchStart">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Return Date</label>
+                    <input type="date" class="form-control form-control-lg" id="quickSearchEnd">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary btn-lg w-100" onclick="quickSearch()">
+                        <i class="bi bi-search me-2"></i>Search Vehicles
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section py-5 bg-light">
+        <div class="container py-5">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="display-4 fw-bold mb-3">Why DriveNow Stands Out</h2>
+                    <p class="lead text-muted">Experience premium car rental with benefits that matter</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card text-center p-4 h-100 bg-white rounded-4 shadow-sm hover-lift">
+                        <div class="feature-icon mb-4 mx-auto bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="bi bi-shield-check text-primary fs-1"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">100% Verified</h4>
+                        <p class="text-muted">Every vehicle passes our rigorous 50-point safety and quality inspection</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card text-center p-4 h-100 bg-white rounded-4 shadow-sm hover-lift">
+                        <div class="feature-icon mb-4 mx-auto bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="bi bi-wallet2 text-success fs-1"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Best Prices</h4>
+                        <p class="text-muted">Transparent pricing with no hidden fees. Get the best value guaranteed</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card text-center p-4 h-100 bg-white rounded-4 shadow-sm hover-lift">
+                        <div class="feature-icon mb-4 mx-auto bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="bi bi-lightning-charge text-warning fs-1"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Instant Booking</h4>
+                        <p class="text-muted">Book your vehicle in under 2 minutes with our streamlined process</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card text-center p-4 h-100 bg-white rounded-4 shadow-sm hover-lift">
+                        <div class="feature-icon mb-4 mx-auto bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="bi bi-headset text-info fs-1"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">24/7 Support</h4>
+                        <p class="text-muted">Our team is always ready to assist you, anytime, anywhere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section py-5 bg-dark text-white">
+        <div class="container py-5">
+            <div class="row g-4 text-center">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="display-3 fw-bold mb-2">24+</div>
+                        <div class="text-white-50 fs-5">Vehicle Brands</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="display-3 fw-bold mb-2">10K+</div>
+                        <div class="text-white-50 fs-5">Happy Customers</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="display-3 fw-bold mb-2">50+</div>
+                        <div class="text-white-50 fs-5">Locations</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="display-3 fw-bold mb-2">4.9</div>
+                        <div class="text-white-50 fs-5">Average Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth-cta-section py-5 bg-gradient-primary text-white position-relative overflow-hidden" id="authCtaSection">
+        <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </div>
+        <div class="container py-5 position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <h2 class="display-5 fw-bold mb-3">Ready to Start Your Journey?</h2>
+                    <p class="lead mb-0">Create your free account now and get access to exclusive deals and instant bookings</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="customer-register.html" class="btn btn-light btn-lg px-5 py-3 mb-2 d-block d-sm-inline-block">
+                        <i class="bi bi-person-plus me-2"></i>Sign Up Free
+                    </a>
+                    <div class="mt-3">
+                        <small class="opacity-75">Already have an account? <a href="customer-login.html" class="text-white fw-bold">Login here</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="fw-bold mb-4"><i class="bi bi-car-front-fill me-2"></i>DriveNow</h4>
+                    <p class="text-white-50 mb-4">Your premium vehicle rental platform. Drive your dreams with confidence and style.</p>
+                    <div class="social-links">
+                        <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="vehicles.html" class="text-white-50 text-decoration-none">Browse Vehicles</a></li>
+                        <li class="mb-2"><a href="#" onclick="checkAuthAndRedirect('booking-history.html'); return false;" class="text-white-50 text-decoration-none">My Bookings</a></li>
+                        <li class="mb-2" id="footerRegisterLink"><a href="customer-register.html" class="text-white-50 text-decoration-none">Register</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-bold mb-3">Support</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Help Center</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">FAQs</a></li>
+                        <li class="mb-2"><a href="customer-login.html?role=admin" class="text-white-50 text-decoration-none"><i class="bi bi-shield-lock"></i> Admin Login</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="fw-bold mb-3">Contact Info</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>123 Rental Street, City, State</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>+1 (555) 123-4567</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>info@drivenow.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-25">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-white-50">&copy; 2024 DriveNow. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="authModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Login Required</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-lock-fill text-primary display-1 mb-3"></i>
+                    <h5 class="mb-3">Please login to continue</h5>
+                    <p class="text-muted mb-4">You need to be logged in to access bookings and make reservations</p>
+                    <div class="d-grid gap-2">
+                        <a href="customer-login.html" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Login Now
+                        </a>
+                        <a href="customer-register.html" class="btn btn-outline-primary">
+                            Don't have an account? Register here
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('quickSearchStart').min = today;
+        document.getElementById('quickSearchEnd').min = today;
+
+        document.getElementById('quickSearchStart').addEventListener('change', function() {
+            document.getElementById('quickSearchEnd').min = this.value;
+        });
+
+        function quickSearch() {
+            const type = document.getElementById('quickSearchType').value;
+            const startDate = document.getElementById('quickSearchStart').value;
+            const endDate = document.getElementById('quickSearchEnd').value;
+
+            let url = 'vehicles.html';
+            const params = new URLSearchParams();
+
+            if (type) params.append('type', type);
+            if (startDate) params.append('start', startDate);
+            if (endDate) params.append('end', endDate);
+
+            if (params.toString()) {
+                url += '?' + params.toString();
+            }
+
+            window.location.href = url;
+        }
+
+        function checkAuthAndRedirect(destination) {
+            if (!isAuthenticated()) {
+                const modal = new bootstrap.Modal(document.getElementById('authModal'));
+                modal.show();
+            } else {
+                window.location.href = destination;
+            }
+        }
+
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 100) {
+                nav.classList.add('navbar-scrolled');
+            } else {
+                nav.classList.remove('navbar-scrolled');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavForAuthState();
+        });
+
+        function updateNavForAuthState() {
+            const authCtaSection = document.getElementById('authCtaSection');
+            const footerRegisterLink = document.getElementById('footerRegisterLink');
+
+            if (!isAuthenticated()) return;
+
+            if (authCtaSection) {
+                authCtaSection.style.display = 'none';
+            }
+
+            if (footerRegisterLink) {
+                footerRegisterLink.style.display = 'none';
+            }
+
+            const navItems = document.getElementById('mainNavItems');
+            const loginBtn = navItems.querySelector('a[href="customer-login.html"]');
+            const registerBtn = navItems.querySelector('a[href="customer-register.html"]');
+
+            if (loginBtn && registerBtn) {
+                const parentLi1 = loginBtn.closest('li');
+                const parentLi2 = registerBtn.closest('li');
+
+                if (parentLi1 && parentLi2) {
+                    parentLi1.remove();
+                    parentLi2.remove();
+
+                    const logoutLi = document.createElement('li');
+                    logoutLi.className = 'nav-item ms-lg-2';
+                    logoutLi.innerHTML = `
+                        <a class="btn btn-outline-light btn-sm" href="#" onclick="handleLogout(event)">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    `;
+                    navItems.appendChild(logoutLi);
+                }
+            }
+        }
+
+        function handleLogout(e) {
+            e.preventDefault();
+            removeAuthToken();
+            localStorage.removeItem('isAdmin');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

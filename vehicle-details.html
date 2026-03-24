@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details - DriveNow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-car-front-fill"></i> DriveNow
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vehicles.html">Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="booking-history.html">My Bookings</a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-outline-light btn-sm" href="customer-login.html">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary btn-sm" href="customer-register.html">
+                            <i class="bi bi-person-plus"></i> Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-5">
+        <div class="mb-3">
+            <a href="vehicles.html" class="text-decoration-none">
+                <i class="bi bi-arrow-left"></i> Back to Vehicles
+            </a>
+        </div>
+
+        <div id="vehicleDetails" class="row">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow">
+                    <div id="vehicleImageContainer" class="card-body bg-light d-flex align-items-center justify-content-center" style="height: 400px;">
+                        <i class="bi bi-car-front display-1 text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div id="vehicleInfo">
+                            <div class="text-center py-5">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Vehicle Features</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Air Conditioning</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Power Steering</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> ABS</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Bluetooth</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> GPS Navigation</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Backup Camera</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/navbar-auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const vehicleId = urlParams.get('id');
+
+            if (!vehicleId) {
+                window.location.href = 'vehicles.html';
+                return;
+            }
+
+            try {
+                const vehicle = await getVehicleById(vehicleId);
+                displayVehicleDetails(vehicle);
+            } catch (error) {
+                console.error('Error loading vehicle details:', error);
+                document.getElementById('vehicleInfo').innerHTML = `
+                    <div class="alert alert-danger">
+                        Failed to load vehicle details. Please try again.
+                    </div>
+                `;
+            }
+        });
+
+        function displayVehicleDetails(vehicle) {
+            const vehicleImageContainer = document.getElementById('vehicleImageContainer');
+            const vehicleInfo = document.getElementById('vehicleInfo');
+
+            if (vehicle.image) {
+                vehicleImageContainer.innerHTML = `
+                    <img src="${vehicle.image}" alt="${vehicle.brand} ${vehicle.model}"
+                         class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;">
+                `;
+            }
+
+            vehicleInfo.innerHTML = `
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h2 class="fw-bold">${vehicle.brand} ${vehicle.model}</h2>
+                    ${vehicle.available ?
+                        '<span class="badge bg-success fs-6">Available</span>' :
+                        '<span class="badge bg-danger fs-6">Not Available</span>'
+                    }
+                </div>
+
+                <div class="mb-4">
+                    <span class="badge bg-primary">${vehicle.type}</span>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-primary fw-bold">₹${vehicle.pricePerDay} <small class="text-muted fs-6">per day</small></h3>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="mb-3">Specifications</h5>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">Brand</td>
+                                <td>${vehicle.brand}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Model</td>
+                                <td>${vehicle.model}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Type</td>
+                                <td>${vehicle.type}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Year</td>
+                                <td>${vehicle.year || '2023'}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Transmission</td>
+                                <td>${vehicle.transmission || 'Automatic'}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Seats</td>
+                                <td>${vehicle.seats || '5'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                ${vehicle.available ? `
+                    <div class="d-grid">
+                        <button onclick="handleBooking(${vehicle.id})" class="btn btn-primary btn-lg">
+                            <i class="bi bi-calendar-check"></i> Book This Vehicle
+                        </button>
+                    </div>
+                ` : `
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i> This vehicle is currently not available for booking.
+                    </div>
+                `}
+            `;
+        }
+
+        function handleBooking(vehicleId) {
+            if (!isAuthenticated()) {
+                if (confirm('You need to login to book a vehicle. Would you like to login now?')) {
+                    window.location.href = `customer-login.html?return=${encodeURIComponent('booking.html?id=' + vehicleId)}`;
+                }
+            } else {
+                window.location.href = `booking.html?id=${vehicleId}`;
+            }
+        }
+    </script>
+</body>
+</html>

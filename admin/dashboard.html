@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Vehicle Rental System</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div>
+                    <div class="sidebar-title">VRS Admin</div>
+                    <div class="sidebar-subtitle">Control Panel</div>
+                </div>
+            </div>
+            <nav>
+                <ul class="sidebar-menu">
+                    <li class="menu-item">
+                        <a href="dashboard.html" class="menu-link active">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="addVehicle.html" class="menu-link">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Add Vehicle</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="manageVehicles.html" class="menu-link">
+                            <i class="fas fa-car-side"></i>
+                            <span>Manage Vehicles</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="rentedVehicles.html" class="menu-link">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Rented Vehicles</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-users"></i>
+                            <span>Manage Customers</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="../admin-login.html" class="menu-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="header-title">Vehicle Rental System</h1>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search vehicles, customers...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="profile-dropdown">
+                        <button class="profile-btn" id="profileBtn">
+                            <div class="profile-avatar">AD</div>
+                            <div class="profile-info">
+                                <div class="profile-name">Admin User</div>
+                                <div class="profile-role">Administrator</div>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="profileDropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="../admin-login.html" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <h2 class="page-title">Dashboard Overview</h2>
+                <p class="page-subtitle">Welcome back! Here's what's happening with your vehicle rental business.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Vehicles</div>
+                            </div>
+                            <div class="stat-icon primary">
+                                <i class="fas fa-car"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">156</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>12% from last month</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Available Vehicles</div>
+                            </div>
+                            <div class="stat-icon success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">98</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>8% from last week</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Rented Vehicles</div>
+                            </div>
+                            <div class="stat-icon danger">
+                                <i class="fas fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">58</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>15% from last week</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Customers</div>
+                            </div>
+                            <div class="stat-icon info">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">342</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>23% from last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Activity</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Vehicle</th>
+                                        <th>Action</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John Doe</td>
+                                        <td>Toyota Camry</td>
+                                        <td>Rental Started</td>
+                                        <td>2024-03-15</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jane Smith</td>
+                                        <td>Honda Civic</td>
+                                        <td>Vehicle Returned</td>
+                                        <td>2024-03-15</td>
+                                        <td><span class="badge badge-info">Completed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mike Johnson</td>
+                                        <td>BMW X5</td>
+                                        <td>Rental Started</td>
+                                        <td>2024-03-14</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sarah Williams</td>
+                                        <td>Tesla Model 3</td>
+                                        <td>Booking Created</td>
+                                        <td>2024-03-14</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>David Brown</td>
+                                        <td>Mercedes C-Class</td>
+                                        <td>Vehicle Returned</td>
+                                        <td>2024-03-13</td>
+                                        <td><span class="badge badge-info">Completed</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Quick Stats</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--text-secondary);">Revenue This Month</span>
+                                    <strong style="font-size: 1.25rem; color: var(--success-color);">₹37,65,000</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--text-secondary);">Pending Bookings</span>
+                                    <strong style="font-size: 1.25rem;">12</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--text-secondary);">Overdue Returns</span>
+                                    <strong style="font-size: 1.25rem; color: var(--danger-color);">3</strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--text-secondary);">Maintenance Required</span>
+                                    <strong style="font-size: 1.25rem; color: var(--warning-color);">5</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Top Vehicles</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600;">Toyota Camry</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">45 rentals</div>
+                                    </div>
+                                    <span class="badge badge-success">Popular</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600;">Honda Civic</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">38 rentals</div>
+                                    </div>
+                                    <span class="badge badge-success">Popular</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600;">BMW X5</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">32 rentals</div>
+                                    </div>
+                                    <span class="badge badge-info">Premium</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 600;">Tesla Model 3</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">28 rentals</div>
+                                    </div>
+                                    <span class="badge badge-info">Premium</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!profileBtn.contains(e.target)) {
+                profileDropdown.classList.remove('show');
+            }
+        });
+
+        if (window.innerWidth <= 1024) {
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

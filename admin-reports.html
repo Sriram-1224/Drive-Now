@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - DriveNow Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="admin-dashboard.html">
+                <i class="bi bi-shield-lock"></i> DriveNow Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-dashboard.html">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-vehicles.html">
+                            <i class="bi bi-car-front"></i> Vehicles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-customers.html">
+                            <i class="bi bi-people"></i> Customers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="admin-reports.html">
+                            <i class="bi bi-file-earmark-bar-graph"></i> Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="adminLogout()">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <div class="row mb-4">
+            <div class="col">
+                <h2 class="fw-bold">Business Reports & Analytics</h2>
+                <p class="text-muted">Generate comprehensive reports and insights</p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <label class="form-label fw-bold">Report Type</label>
+                        <select class="form-select" id="reportType">
+                            <option value="revenue">Revenue Report</option>
+                            <option value="bookings">Bookings Report</option>
+                            <option value="vehicles">Vehicle Performance</option>
+                            <option value="customers">Customer Analytics</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <label class="form-label fw-bold">Date Range</label>
+                        <select class="form-select" id="dateRange">
+                            <option value="7">Last 7 Days</option>
+                            <option value="30">Last 30 Days</option>
+                            <option value="90">Last 90 Days</option>
+                            <option value="365">Last Year</option>
+                            <option value="all">All Time</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <label class="form-label fw-bold">Export Format</label>
+                        <select class="form-select" id="exportFormat">
+                            <option value="pdf">PDF Document</option>
+                            <option value="csv">CSV Spreadsheet</option>
+                            <option value="excel">Excel Workbook</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <label class="form-label fw-bold">Actions</label>
+                        <button class="btn btn-primary w-100" onclick="generateReport()">
+                            <i class="bi bi-bar-chart-fill"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-muted mb-1">Total Revenue</p>
+                                <h3 class="mb-0 fw-bold" id="totalRevenue">₹0</h3>
+                                <small class="text-success"><i class="bi bi-arrow-up"></i> 12.5%</small>
+                            </div>
+                            <div class="text-primary">
+                                <i class="bi bi-currency-dollar" style="font-size: 2.5rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-muted mb-1">Total Bookings</p>
+                                <h3 class="mb-0 fw-bold" id="totalBookings">0</h3>
+                                <small class="text-success"><i class="bi bi-arrow-up"></i> 8.2%</small>
+                            </div>
+                            <div class="text-success">
+                                <i class="bi bi-calendar-check" style="font-size: 2.5rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-muted mb-1">Active Rentals</p>
+                                <h3 class="mb-0 fw-bold" id="activeRentals">0</h3>
+                                <small class="text-info"><i class="bi bi-dash"></i> 0%</small>
+                            </div>
+                            <div class="text-info">
+                                <i class="bi bi-car-front-fill" style="font-size: 2.5rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="text-muted mb-1">Avg Booking Value</p>
+                                <h3 class="mb-0 fw-bold" id="avgBookingValue">₹0</h3>
+                                <small class="text-success"><i class="bi bi-arrow-up"></i> 5.3%</small>
+                            </div>
+                            <div class="text-warning">
+                                <i class="bi bi-graph-up" style="font-size: 2.5rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Revenue Trend</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="revenueChart" style="height: 300px;">
+                            <canvas id="revenueCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Top Performing Vehicles</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="topVehicles">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <div class="fw-bold">Maruti Suzuki Swift</div>
+                                    <small class="text-muted">45 bookings</small>
+                                </div>
+                                <div class="text-success fw-bold">₹67,500</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <div class="fw-bold">Hyundai Creta</div>
+                                    <small class="text-muted">38 bookings</small>
+                                </div>
+                                <div class="text-success fw-bold">₹76,000</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <div class="fw-bold">Tata Nexon</div>
+                                    <small class="text-muted">32 bookings</small>
+                                </div>
+                                <div class="text-success fw-bold">₹64,000</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <div class="fw-bold">Mahindra Thar</div>
+                                    <small class="text-muted">28 bookings</small>
+                                </div>
+                                <div class="text-success fw-bold">₹84,000</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">Toyota Fortuner</div>
+                                    <small class="text-muted">25 bookings</small>
+                                </div>
+                                <div class="text-success fw-bold">₹1,00,000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Booking Status Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Confirmed</span>
+                                <strong class="text-success" id="confirmedCount">0</strong>
+                            </div>
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar bg-success" id="confirmedBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Pending</span>
+                                <strong class="text-warning" id="pendingCount">0</strong>
+                            </div>
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar bg-warning" id="pendingBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Completed</span>
+                                <strong class="text-info" id="completedCount">0</strong>
+                            </div>
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar bg-info" id="completedBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Cancelled</span>
+                                <strong class="text-danger" id="cancelledCount">0</strong>
+                            </div>
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar bg-danger" id="cancelledBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Vehicle Type Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="vehicleTypeChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/admin.js"></script>
+    <script>
+        let revenueChart = null;
+        let vehicleTypeChart = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReportData();
+            initializeCharts();
+        });
+
+        async function loadReportData() {
+            try {
+                const stats = await getReportStats();
+                updateReportStats(stats);
+            } catch (error) {
+                console.error('Error loading report data:', error);
+            }
+        }
+
+        function updateReportStats(stats) {
+            document.getElementById('totalRevenue').textContent = '₹' + (stats.totalRevenue || 0).toLocaleString('en-IN');
+            document.getElementById('totalBookings').textContent = (stats.totalBookings || 0).toLocaleString();
+            document.getElementById('activeRentals').textContent = (stats.activeRentals || 0).toLocaleString();
+            const avgValue = stats.totalBookings > 0 ? (stats.totalRevenue / stats.totalBookings).toFixed(2) : 0;
+            document.getElementById('avgBookingValue').textContent = '₹' + avgValue;
+
+            const total = stats.confirmedBookings + stats.pendingBookings + stats.completedBookings + stats.cancelledBookings || 1;
+
+            document.getElementById('confirmedCount').textContent = stats.confirmedBookings || 0;
+            document.getElementById('pendingCount').textContent = stats.pendingBookings || 0;
+            document.getElementById('completedCount').textContent = stats.completedBookings || 0;
+            document.getElementById('cancelledCount').textContent = stats.cancelledBookings || 0;
+
+            document.getElementById('confirmedBar').style.width = ((stats.confirmedBookings / total) * 100) + '%';
+            document.getElementById('pendingBar').style.width = ((stats.pendingBookings / total) * 100) + '%';
+            document.getElementById('completedBar').style.width = ((stats.completedBookings / total) * 100) + '%';
+            document.getElementById('cancelledBar').style.width = ((stats.cancelledBookings / total) * 100) + '%';
+
+            updateCharts(stats);
+        }
+
+        function initializeCharts() {
+            const revenueCtx = document.getElementById('revenueCanvas').getContext('2d');
+            revenueChart = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [1200, 1900, 3000, 2500, 2800, 3200, 4100, 3800, 4200, 4500, 4800, 5200],
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const vehicleCtx = document.getElementById('vehicleTypeChart').getContext('2d');
+            vehicleTypeChart = new Chart(vehicleCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sedan', 'SUV', 'Luxury', 'Electric', 'Truck'],
+                    datasets: [{
+                        data: [30, 25, 20, 15, 10],
+                        backgroundColor: [
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(153, 102, 255)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts(stats) {
+            if (stats.revenueData && revenueChart) {
+                revenueChart.data.datasets[0].data = stats.revenueData;
+                revenueChart.update();
+            }
+            if (stats.vehicleTypeData && vehicleTypeChart) {
+                vehicleTypeChart.data.datasets[0].data = stats.vehicleTypeData;
+                vehicleTypeChart.update();
+            }
+        }
+
+        async function generateReport() {
+            const reportType = document.getElementById('reportType').value;
+            const dateRange = document.getElementById('dateRange').value;
+            const exportFormat = document.getElementById('exportFormat').value;
+
+            try {
+                const report = await generateReportData(reportType, dateRange, exportFormat);
+                downloadReport(report, exportFormat, reportType);
+            } catch (error) {
+                console.error('Error generating report:', error);
+                alert('Failed to generate report. Please try again.');
+            }
+        }
+
+        function downloadReport(data, format, type) {
+            const filename = `${type}_report_${new Date().toISOString().split('T')[0]}.${format}`;
+
+            if (format === 'csv') {
+                const csv = convertToCSV(data);
+                downloadFile(csv, filename, 'text/csv');
+            } else {
+                alert(`Report generated successfully. ${format.toUpperCase()} download will be available soon.`);
+            }
+        }
+
+        function convertToCSV(data) {
+            if (!data || data.length === 0) return '';
+            const headers = Object.keys(data[0]).join(',');
+            const rows = data.map(row => Object.values(row).join(','));
+            return headers + '\n' + rows.join('\n');
+        }
+
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>

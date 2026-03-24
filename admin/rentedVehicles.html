@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rented Vehicles - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div>
+                    <div class="sidebar-title">VRS Admin</div>
+                    <div class="sidebar-subtitle">Control Panel</div>
+                </div>
+            </div>
+            <nav>
+                <ul class="sidebar-menu">
+                    <li class="menu-item">
+                        <a href="dashboard.html" class="menu-link">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="addVehicle.html" class="menu-link">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Add Vehicle</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="manageVehicles.html" class="menu-link">
+                            <i class="fas fa-car-side"></i>
+                            <span>Manage Vehicles</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="rentedVehicles.html" class="menu-link active">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Rented Vehicles</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-users"></i>
+                            <span>Manage Customers</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="../admin-login.html" class="menu-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="header-title">Vehicle Rental System</h1>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search rentals...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="profile-dropdown">
+                        <button class="profile-btn" id="profileBtn">
+                            <div class="profile-avatar">AD</div>
+                            <div class="profile-info">
+                                <div class="profile-name">Admin User</div>
+                                <div class="profile-role">Administrator</div>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="profileDropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="../admin-login.html" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h2 class="page-title">Rented Vehicles</h2>
+                        <p class="page-subtitle">Track and manage all active and completed vehicle rentals.</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Active Rentals</div>
+                            </div>
+                            <div class="stat-icon danger">
+                                <i class="fas fa-car-side"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">58</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Overdue</div>
+                            </div>
+                            <div class="stat-icon danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">3</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Due Today</div>
+                            </div>
+                            <div class="stat-icon warning">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">7</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Completed</div>
+                            </div>
+                            <div class="stat-icon success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">142</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 class="card-title">All Rentals</h3>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <select class="form-select" id="filterStatus" style="width: auto; padding: 0.5rem 1rem;">
+                                <option value="">All Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Overdue">Overdue</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
+                                        <th>Vehicle Name</th>
+                                        <th>Customer Name</th>
+                                        <th>Contact</th>
+                                        <th>Rent Date</th>
+                                        <th>Return Date</th>
+                                        <th>Days</th>
+                                        <th>Total Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rentalTableBody">
+                                    <tr>
+                                        <td>BK-001</td>
+                                        <td>Maruti Suzuki Swift 2024</td>
+                                        <td>Rahul Sharma</td>
+                                        <td>+91-98765-43210</td>
+                                        <td>2024-03-10</td>
+                                        <td>2024-03-17</td>
+                                        <td>7</td>
+                                        <td>₹10,500</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(1)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-success" onclick="completeRental(1)">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-002</td>
+                                        <td>Hyundai Creta 2023</td>
+                                        <td>Priya Patel</td>
+                                        <td>+91-98765-43211</td>
+                                        <td>2024-03-08</td>
+                                        <td>2024-03-15</td>
+                                        <td>7</td>
+                                        <td>₹14,000</td>
+                                        <td><span class="badge badge-info">Completed</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(2)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-warning" onclick="generateInvoice(2)">
+                                                    <i class="fas fa-file-invoice"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-003</td>
+                                        <td>Tata Nexon EV 2024</td>
+                                        <td>Amit Kumar</td>
+                                        <td>+91-98765-43212</td>
+                                        <td>2024-03-12</td>
+                                        <td>2024-03-19</td>
+                                        <td>7</td>
+                                        <td>₹17,500</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(3)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-success" onclick="completeRental(3)">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-004</td>
+                                        <td>Honda City 2024</td>
+                                        <td>Sneha Gupta</td>
+                                        <td>+91-98765-43213</td>
+                                        <td>2024-03-05</td>
+                                        <td>2024-03-12</td>
+                                        <td>7</td>
+                                        <td>₹12,250</td>
+                                        <td><span class="badge badge-danger">Overdue</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(4)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" onclick="contactCustomer(4)">
+                                                    <i class="fas fa-phone"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-005</td>
+                                        <td>Mahindra Thar 2023</td>
+                                        <td>Vikram Singh</td>
+                                        <td>+91-98765-43214</td>
+                                        <td>2024-03-01</td>
+                                        <td>2024-03-08</td>
+                                        <td>7</td>
+                                        <td>₹21,000</td>
+                                        <td><span class="badge badge-info">Completed</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(5)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-warning" onclick="generateInvoice(5)">
+                                                    <i class="fas fa-file-invoice"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-006</td>
+                                        <td>Kia Seltos 2024</td>
+                                        <td>Anjali Reddy</td>
+                                        <td>+91-98765-43215</td>
+                                        <td>2024-03-13</td>
+                                        <td>2024-03-20</td>
+                                        <td>7</td>
+                                        <td>₹16,100</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(6)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-success" onclick="completeRental(6)">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-007</td>
+                                        <td>Royal Enfield Classic 350 2024</td>
+                                        <td>Rohan Desai</td>
+                                        <td>+91-98765-43216</td>
+                                        <td>2024-03-14</td>
+                                        <td>2024-03-21</td>
+                                        <td>7</td>
+                                        <td>₹4,900</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(7)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-success" onclick="completeRental(7)">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-008</td>
+                                        <td>Toyota Fortuner 2024</td>
+                                        <td>Kavita Nair</td>
+                                        <td>+91-98765-43217</td>
+                                        <td>2024-02-28</td>
+                                        <td>2024-03-06</td>
+                                        <td>7</td>
+                                        <td>₹28,000</td>
+                                        <td><span class="badge badge-info">Completed</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(8)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-warning" onclick="generateInvoice(8)">
+                                                    <i class="fas fa-file-invoice"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-009</td>
+                                        <td>MG Hector 2023</td>
+                                        <td>Arjun Mehta</td>
+                                        <td>+91-98765-43218</td>
+                                        <td>2024-03-15</td>
+                                        <td>2024-03-22</td>
+                                        <td>7</td>
+                                        <td>₹19,600</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(9)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-success" onclick="completeRental(9)">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BK-010</td>
+                                        <td>Honda Activa 125 2023</td>
+                                        <td>Meera Iyer</td>
+                                        <td>+91-98765-43219</td>
+                                        <td>2024-03-03</td>
+                                        <td>2024-03-08</td>
+                                        <td>5</td>
+                                        <td>₹2,000</td>
+                                        <td><span class="badge badge-danger">Overdue</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-primary" onclick="viewRental(10)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" onclick="contactCustomer(10)">
+                                                    <i class="fas fa-phone"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!profileBtn.contains(e.target)) {
+                profileDropdown.classList.remove('show');
+            }
+        });
+
+        if (window.innerWidth <= 1024) {
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        }
+
+        function viewRental(id) {
+            alert(`View rental details for booking ${id} (This will connect to backend Java Servlet)`);
+        }
+
+        function completeRental(id) {
+            if (confirm('Mark this rental as completed?')) {
+                alert(`Complete rental ${id} (This will connect to backend Java Servlet)`);
+            }
+        }
+
+        function generateInvoice(id) {
+            alert(`Generate invoice for booking ${id} (This will connect to backend Java Servlet)`);
+        }
+
+        function contactCustomer(id) {
+            alert(`Contact customer for overdue rental ${id} (This will connect to backend Java Servlet)`);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#rentalTableBody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        document.getElementById('filterStatus').addEventListener('change', (e) => {
+            const statusFilter = e.target.value;
+            const rows = document.querySelectorAll('#rentalTableBody tr');
+
+            rows.forEach(row => {
+                const status = row.querySelector('.badge').textContent;
+                row.style.display = !statusFilter || status === statusFilter ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

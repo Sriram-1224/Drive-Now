@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vehicle - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div>
+                    <div class="sidebar-title">VRS Admin</div>
+                    <div class="sidebar-subtitle">Control Panel</div>
+                </div>
+            </div>
+            <nav>
+                <ul class="sidebar-menu">
+                    <li class="menu-item">
+                        <a href="dashboard.html" class="menu-link">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="addVehicle.html" class="menu-link active">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Add Vehicle</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="manageVehicles.html" class="menu-link">
+                            <i class="fas fa-car-side"></i>
+                            <span>Manage Vehicles</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="rentedVehicles.html" class="menu-link">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Rented Vehicles</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-users"></i>
+                            <span>Manage Customers</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="../admin-login.html" class="menu-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="header-title">Vehicle Rental System</h1>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search vehicles, customers...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="profile-dropdown">
+                        <button class="profile-btn" id="profileBtn">
+                            <div class="profile-avatar">AD</div>
+                            <div class="profile-info">
+                                <div class="profile-name">Admin User</div>
+                                <div class="profile-role">Administrator</div>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="profileDropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="../admin-login.html" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <h2 class="page-title">Add New Vehicle</h2>
+                <p class="page-subtitle">Fill in the details below to add a new vehicle to your fleet.</p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Vehicle Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="addVehicleForm">
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleName">
+                                    <i class="fas fa-car" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Vehicle Name
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="vehicleName"
+                                    placeholder="Enter vehicle name (e.g., Maruti Suzuki Swift 2024)"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleType">
+                                    <i class="fas fa-layer-group" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Vehicle Type
+                                </label>
+                                <select class="form-select" id="vehicleType" required>
+                                    <option value="">Select vehicle type</option>
+                                    <option value="Hatchback">Hatchback</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="SUV">SUV</option>
+                                    <option value="MUV">MUV</option>
+                                    <option value="Bike">Bike</option>
+                                    <option value="Scooter">Scooter</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleBrand">
+                                    <i class="fas fa-tag" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Brand
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="vehicleBrand"
+                                    placeholder="Enter brand (e.g., Maruti Suzuki, Hyundai, Tata)"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleModel">
+                                    <i class="fas fa-car-side" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Model
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="vehicleModel"
+                                    placeholder="Enter model (e.g., Swift, Creta, Nexon)"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleYear">
+                                    <i class="fas fa-calendar" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Year
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="vehicleYear"
+                                    placeholder="Enter year (e.g., 2024)"
+                                    min="2000"
+                                    max="2030"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="pricePerDay">
+                                    <i class="fas fa-indian-rupee-sign" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Price Per Day (₹)
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="pricePerDay"
+                                    placeholder="Enter price per day (e.g., 1500)"
+                                    step="1"
+                                    min="0"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleImage">
+                                    <i class="fas fa-image" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Vehicle Image URL
+                                </label>
+                                <input
+                                    type="url"
+                                    class="form-control"
+                                    id="vehicleImage"
+                                    placeholder="Enter image URL (e.g., https://images.pexels.com/...)"
+                                >
+                                <small style="color: var(--text-secondary); display: block; margin-top: 0.5rem;">
+                                    <i class="fas fa-info-circle"></i>
+                                    Use stock photos from Pexels or other image sources
+                                </small>
+                                <div id="imagePreview" style="margin-top: 1rem; display: none;">
+                                    <img id="previewImg" src="" alt="Preview" style="max-width: 300px; max-height: 200px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleColor">
+                                    <i class="fas fa-palette" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Color
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="vehicleColor"
+                                    placeholder="Enter color (e.g., Black, White, Red)"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehiclePlate">
+                                    <i class="fas fa-address-card" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    License Plate
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="vehiclePlate"
+                                    placeholder="Enter license plate number"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleSeats">
+                                    <i class="fas fa-user-friends" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Number of Seats
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="vehicleSeats"
+                                    placeholder="Enter number of seats"
+                                    min="1"
+                                    max="50"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleStatus">
+                                    <i class="fas fa-info-circle" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Status
+                                </label>
+                                <select class="form-select" id="vehicleStatus" required>
+                                    <option value="Available">Available</option>
+                                    <option value="Maintenance">Maintenance</option>
+                                    <option value="Reserved">Reserved</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="vehicleDescription">
+                                    <i class="fas fa-align-left" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                                    Description
+                                </label>
+                                <textarea
+                                    class="form-control"
+                                    id="vehicleDescription"
+                                    rows="4"
+                                    placeholder="Enter vehicle description, features, and specifications"
+                                    style="resize: vertical;"
+                                ></textarea>
+                            </div>
+
+                            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i>
+                                    Add Vehicle
+                                </button>
+                                <button type="reset" class="btn btn-warning">
+                                    <i class="fas fa-redo"></i>
+                                    Reset Form
+                                </button>
+                                <a href="manageVehicles.html" class="btn btn-danger">
+                                    <i class="fas fa-times"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+        const addVehicleForm = document.getElementById('addVehicleForm');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!profileBtn.contains(e.target)) {
+                profileDropdown.classList.remove('show');
+            }
+        });
+
+        if (window.innerWidth <= 1024) {
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        }
+
+        const vehicleImageInput = document.getElementById('vehicleImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+
+        vehicleImageInput.addEventListener('input', (e) => {
+            const url = e.target.value.trim();
+            if (url) {
+                previewImg.src = url;
+                imagePreview.style.display = 'block';
+                previewImg.onerror = () => {
+                    imagePreview.style.display = 'none';
+                };
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        });
+
+        addVehicleForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('vehicleName').value,
+                type: document.getElementById('vehicleType').value,
+                brand: document.getElementById('vehicleBrand').value,
+                model: document.getElementById('vehicleModel').value,
+                year: document.getElementById('vehicleYear').value,
+                pricePerDay: document.getElementById('pricePerDay').value,
+                color: document.getElementById('vehicleColor').value,
+                plate: document.getElementById('vehiclePlate').value,
+                seats: document.getElementById('vehicleSeats').value,
+                status: document.getElementById('vehicleStatus').value,
+                description: document.getElementById('vehicleDescription').value,
+                image: document.getElementById('vehicleImage').value
+            };
+
+            console.log('Vehicle Data:', formData);
+
+            alert('Vehicle added successfully! (This will connect to backend Java Servlet)');
+
+            addVehicleForm.reset();
+            imagePreview.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

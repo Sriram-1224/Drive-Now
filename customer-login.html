@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login - DriveNow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-car-front-fill"></i> DriveNow
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vehicles.html">Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="customer-login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer-register.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-person-circle display-4 text-primary" id="loginIcon"></i>
+                            <h3 class="mt-3 fw-bold" id="loginTitle">Login</h3>
+                            <p class="text-muted">Welcome back! Please login to your account.</p>
+                        </div>
+
+                        <div id="loginAlert" class="alert alert-danger d-none" role="alert"></div>
+
+                        <form id="loginForm">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Login As</label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="userRole" id="customerRole" value="customer" checked>
+                                    <label class="btn btn-outline-primary" for="customerRole">
+                                        <i class="bi bi-person"></i> Customer
+                                    </label>
+                                    <input type="radio" class="btn-check" name="userRole" id="adminRole" value="admin">
+                                    <label class="btn btn-outline-primary" for="adminRole">
+                                        <i class="bi bi-shield-lock"></i> Admin
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control form-control-lg" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control form-control-lg" id="password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                <i class="bi bi-box-arrow-in-right"></i> Login
+                            </button>
+                        </form>
+
+                        <div class="text-center">
+                            <p class="mb-0">Don't have an account?
+                                <a href="customer-register.html" class="text-decoration-none">Register here</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/customer.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const roleParam = urlParams.get('role');
+
+        if (roleParam === 'admin') {
+            document.getElementById('adminRole').checked = true;
+            document.getElementById('loginIcon').className = 'bi bi-shield-lock-fill display-4 text-danger';
+            document.getElementById('loginTitle').textContent = 'Admin Login';
+        }
+    </script>
+</body>
+</html>
